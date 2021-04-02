@@ -1,7 +1,6 @@
 import React from 'react';
 
-// import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 
 import HomeScreen from '../../screen/HomeScreen';
 import AboutScreen from '../../screen/AboutScreen';
@@ -9,16 +8,22 @@ import ContactScreen from '../../screen/ContactScreen';
 import ServiceScreen from '../../screen/ServiceScreen';
 import {Image, StyleSheet} from 'react-native';
 
-// const Tab = createMaterialTopTabNavigator();
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 
-const MaterialBottomTabNav = () => (
-  <Tab.Navigator initialRouteName="Feed" activeColor="#fff">
+const MaterialTopTabNav = () => (
+  <Tab.Navigator
+    tabBarOptions={{
+      showIcon: true,
+      activeTintColor: '#fff',
+      indicatorStyle: {height: 0},
+      indicatorContainerStyle: {backgroundColor: '#e91e63'},
+    }}
+    tabBarPosition="bottom"
+    initialRouteName="HomeScreen">
     <Tab.Screen
       name="HomeScreen"
       component={HomeScreen}
       options={{
-        tabBarColor: '#49bfff',
         tabBarLabel: 'Home',
         tabBarIcon: ({focused}) => {
           return (
@@ -34,7 +39,6 @@ const MaterialBottomTabNav = () => (
       name="AboutScreen"
       component={AboutScreen}
       options={{
-        tabBarColor: '#00b698',
         tabBarLabel: 'About',
         tabBarIcon: ({focused}) => {
           return (
@@ -50,7 +54,6 @@ const MaterialBottomTabNav = () => (
       name="ContactScreen"
       component={ContactScreen}
       options={{
-        tabBarColor: '#a017df',
         tabBarLabel: 'Contact',
         tabBarIcon: ({focused}) => {
           return (
@@ -66,7 +69,6 @@ const MaterialBottomTabNav = () => (
       name="ServiceScreen"
       component={ServiceScreen}
       options={{
-        tabBarColor: '#e61766',
         tabBarLabel: 'Services',
         tabBarIcon: ({focused}) => {
           return (
@@ -80,9 +82,13 @@ const MaterialBottomTabNav = () => (
     />
   </Tab.Navigator>
 );
-export default MaterialBottomTabNav;
+export default MaterialTopTabNav;
 
 const styles = StyleSheet.create({
+  barStyle: {
+    backgroundColor: '#e91e63',
+    fontSize: 20,
+  },
   icon: {
     width: 25,
     height: 25,

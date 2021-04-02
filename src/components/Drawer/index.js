@@ -11,7 +11,8 @@ const Drawer = createDrawerNavigator();
 const DrawerNav = () => {
   return (
     <Drawer.Navigator
-      screenOptions={{headerStyle: {backgroundColor: '#00b698'}}}>
+      drawerStyle={{backgroundColor: '#e4f6ff'}}
+      screenOptions={{headerStyle: {backgroundColor: '#49bfff'}}}>
       <Drawer.Screen
         name="MaterialBottomTabNav"
         component={MaterialBottomTabNav}
