@@ -16,7 +16,7 @@ const LoginScreen = ({navigation}) => {
   const [state, setState] = useState({userName: '', password: ''});
 
   const handleSignIn = () => {
-    navigation.navigate('Home');
+    navigation.navigate('DrawerNav');
   };
 
   return (
