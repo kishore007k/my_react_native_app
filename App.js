@@ -4,9 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import OnBoardingScreen from './src/screen/OnBoardingScreen';
 
 import AsyncStorage from '@react-native-community/async-storage';
-import LoginScreen from './src/screen/LoginScreen';
-import LoginPage from './src/components/Login';
-import SignUpScreen from './src/screen/SignUpScreen';
+
+import Auth from './src/components/Auth/Auth';
+import {AuthProvider} from './src/components/AuthContext';
 
 const Stack = createStackNavigator();
 
@@ -31,13 +31,16 @@ const App = () => {
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="OnBoarding" component={OnBoardingScreen} />
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="SignUp" component={SignUpScreen} />
+          <Stack.Screen name="Auth" component={Auth} />
         </Stack.Navigator>
       </NavigationContainer>
     );
   } else {
-    return <LoginPage />;
+    return (
+      <AuthProvider>
+        <Auth />
+      </AuthProvider>
+    );
   }
 };
 export default App;

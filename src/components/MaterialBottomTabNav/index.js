@@ -18,7 +18,7 @@ const MaterialBottomTabNav = () => (
       name="HomeScreen"
       component={HomeScreen}
       options={{
-        tabBarColor: '#49bfff',
+        tabBarColor: '#00A5FF',
         tabBarLabel: 'Home',
         tabBarIcon: ({focused}) => {
           return (
@@ -34,7 +34,7 @@ const MaterialBottomTabNav = () => (
       name="AboutScreen"
       component={AboutScreen}
       options={{
-        tabBarColor: '#00b698',
+        tabBarColor: '#00B380',
         tabBarLabel: 'About',
         tabBarIcon: ({focused}) => {
           return (
@@ -50,7 +50,7 @@ const MaterialBottomTabNav = () => (
       name="ContactScreen"
       component={ContactScreen}
       options={{
-        tabBarColor: '#a017df',
+        tabBarColor: '#8427C2',
         tabBarLabel: 'Contact',
         tabBarIcon: ({focused}) => {
           return (
@@ -66,7 +66,7 @@ const MaterialBottomTabNav = () => (
       name="ServiceScreen"
       component={ServiceScreen}
       options={{
-        tabBarColor: '#e61766',
+        tabBarColor: '#FF4173',
         tabBarLabel: 'Services',
         tabBarIcon: ({focused}) => {
           return (

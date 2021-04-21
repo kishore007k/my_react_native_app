@@ -6,8 +6,8 @@ const {width, height} = Dimensions.get('screen');
 
 const OnBoardingScreen = ({navigation}) => (
   <OnBoarding
-    onSkip={() => navigation.replace('Login')}
-    onDone={() => navigation.replace('Login')}
+    onSkip={() => navigation.replace('Auth')}
+    onDone={() => navigation.replace('Auth')}
     pages={[
       {
         backgroundColor: '#00BFA6',

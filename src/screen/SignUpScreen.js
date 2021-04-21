@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -9,14 +9,18 @@ import {
   Dimensions,
   SafeAreaView,
 } from 'react-native';
+import {AuthContext} from '../components/AuthContext';
 
 const {width, height} = Dimensions.get('screen');
 
 const SignUpScreen = ({navigation}) => {
-  const [state, setState] = useState({userName: '', password: ''});
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const {signUp} = useContext(AuthContext);
 
   const handleSignUp = () => {
-    navigation.navigate('Login');
+    signUp(email, password);
   };
 
   return (
@@ -31,17 +35,17 @@ const SignUpScreen = ({navigation}) => {
         </View>
         <View>
           <View>
-            <Text style={styles.inputTitle}>UserName</Text>
+            <Text style={styles.inputTitle}>Email</Text>
             <TouchableOpacity style={styles.inputContainer}>
               <Image
                 source={require('../assets/icon/user_red.png')}
                 style={styles.icons}
               />
               <TextInput
-                placeholder="UserName"
+                placeholder="Email"
                 placeholderTextColor="black"
                 style={styles.input}
-                onChangeText={text => setState({userName: text})}
+                onChangeText={text => setEmail(text)}
               />
             </TouchableOpacity>
           </View>
@@ -57,7 +61,7 @@ const SignUpScreen = ({navigation}) => {
                 placeholderTextColor="black"
                 style={styles.input}
                 secureTextEntry
-                onChangeText={text => setState({password: text})}
+                onChangeText={text => setPassword(text)}
               />
             </TouchableOpacity>
           </View>

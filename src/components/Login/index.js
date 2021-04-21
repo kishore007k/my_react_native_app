@@ -7,13 +7,24 @@ import DrawerNav from '../Drawer';
 
 const LoginStack = createStackNavigator();
 
-const LoginPage = () => (
-  <NavigationContainer>
-    <LoginStack.Navigator headerMode="none">
-      <LoginStack.Screen name="Login" component={LoginScreen} />
-      <LoginStack.Screen name="SignUp" component={SignUpScreen} />
-      <LoginStack.Screen name="DrawerNav" component={DrawerNav} />
-    </LoginStack.Navigator>
-  </NavigationContainer>
-);
-export default LoginPage;
+export const AppStack = () => {
+  return (
+    <NavigationContainer>
+      <LoginStack.Navigator headerMode="none">
+        <LoginStack.Screen name="DrawerNav" component={DrawerNav} />
+      </LoginStack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export const AuthStack = () => {
+  return (
+    <NavigationContainer>
+      <LoginStack.Navigator headerMode="none">
+        <LoginStack.Screen name="Login" component={LoginScreen} />
+        <LoginStack.Screen name="SignUp" component={SignUpScreen} />
+        <LoginStack.Screen name="DrawerNav" component={DrawerNav} />
+      </LoginStack.Navigator>
+    </NavigationContainer>
+  );
+};
