@@ -17,7 +17,7 @@ const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const {signIn} = useContext(AuthContext);
+  const {signIn, signInWithGoogle} = useContext(AuthContext);
 
   const handleSignIn = () => {
     signIn(email, password);
@@ -73,7 +73,10 @@ const LoginScreen = ({navigation}) => {
           </TouchableOpacity>
         </View>
         <View style={styles.socialContainer}>
-          <TouchableOpacity style={styles.social} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.social}
+            activeOpacity={0.8}
+            onPress={() => signInWithGoogle()}>
             <Image
               source={require('../assets/icon/google.png')}
               style={styles.socialIcon}

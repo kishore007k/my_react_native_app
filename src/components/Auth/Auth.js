@@ -20,7 +20,8 @@ const Auth = props => {
   useEffect(() => {
     const subscribe = auth().onAuthStateChanged(onAuthStateChanged);
     return subscribe;
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if (initialization) {
     return null;

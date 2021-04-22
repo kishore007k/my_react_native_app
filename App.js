@@ -8,6 +8,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Auth from './src/components/Auth/Auth';
 import {AuthProvider} from './src/components/AuthContext';
 
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -21,6 +23,11 @@ const App = () => {
       } else {
         setIsFirstLaunch(false);
       }
+    });
+
+    GoogleSignin.configure({
+      webClientId:
+        '346399953229-crtumc075n27jlojr9ntoh42u4dvf0ht.apps.googleusercontent.com',
     });
   }, []);
 

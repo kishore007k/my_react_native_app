@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {
@@ -12,8 +12,10 @@ import {
   TouchableRipple,
   Switch,
 } from 'react-native-paper';
+import {AuthContext} from '../AuthContext';
 
 const DrawerContents = props => {
+  const {signOut} = useContext(AuthContext);
   return (
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
@@ -133,7 +135,7 @@ const DrawerContents = props => {
             );
           }}
           label="Sign Out"
-          onPress={() => {}}
+          onPress={() => signOut()}
         />
       </Drawer.Section>
     </View>
