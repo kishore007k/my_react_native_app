@@ -1,5 +1,5 @@
 /* eslint-disable react-native/no-inline-styles */
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
   View,
   Text,
@@ -10,6 +10,10 @@ import {
 } from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 import storage from '@react-native-firebase/storage';
+import {AuthContext} from '../components/AuthContext';
+
+import ActionButton from 'react-native-action-button';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = () => {
   const [image, setImage] = useState(null);
@@ -17,10 +21,12 @@ const HomeScreen = () => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
 
+  const {user} = useContext(AuthContext);
+
   const pickImageFromGallery = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 300,
+      compressImageMaxWidth: 300,
+      compressImageMaxHeight: 300,
       cropping: true,
     }).then(imageFile => {
       const uri = imageFile.path;
@@ -34,7 +40,7 @@ const HomeScreen = () => {
     const fileName = uploadUri.substring(uploadUri.lastIndexOf('/') + 1);
 
     setUploading(true);
-    const task = storage().ref(fileName).putFile(uploadUri);
+    const task = storage().ref(`${user.uid}/${fileName}`).putFile(uploadUri);
     task.on('state_changed', taskSnapshot => {
       setTransferred(
         Math.round(taskSnapshot.bytesTransferred / taskSnapshot.totalBytes) *
@@ -51,31 +57,61 @@ const HomeScreen = () => {
     } catch (e) {
       console.log(e);
     }
-    const url = await storage().ref(fileName).getDownloadURL();
+    const url = await storage().ref(`${user.uid}/${fileName}`).getDownloadURL();
     setImage(url);
+  };
+
+  const takePhotoUsingCamera = () => {
+    ImagePicker.openCamera({
+      compressImageMaxWidth: 300,
+      compressImageMaxHeight: 400,
+      cropping: true,
+    }).then(imageFile => {
+      const uri = imageFile.path;
+      setImage(uri);
+      setImagePath(uri);
+    });
   };
 
   return (
     <View style={styles.container}>
       <Text>Home Screen</Text>
-      <TouchableOpacity onPress={pickImageFromGallery}>
-        <Text>+</Text>
-      </TouchableOpacity>
       {image && (
         <Image source={{uri: image}} style={{width: 300, height: 300}} />
       )}
-      <TouchableOpacity onPress={uploadImageToStorage}>
-        <Text>Upload</Text>
-      </TouchableOpacity>
       {uploading ? (
         <View>
           <ActivityIndicator size="large" color="#014e96s" />
+          <Text>{transferred} %</Text>
         </View>
       ) : (
-        <View>
-          <Text>Done</Text>
-        </View>
+        <TouchableOpacity
+          onPress={uploadImageToStorage}
+          style={styles.uploadBtn}>
+          <Text style={styles.uploadBtnText}>Upload</Text>
+        </TouchableOpacity>
       )}
+
+      <ActionButton buttonColor="#0a7ae2">
+        <ActionButton.Item
+          buttonColor="#9b59b6"
+          title="Take Photo"
+          onPress={takePhotoUsingCamera}>
+          <Image
+            source={require('../assets/icon/camera.png')}
+            style={styles.actionButtonIcon}
+          />
+        </ActionButton.Item>
+        <ActionButton.Item
+          buttonColor="#db346c"
+          title="Choose Photo"
+          onPress={pickImageFromGallery}>
+          <Image
+            source={require('../assets/icon/gallery.png')}
+            style={styles.actionButtonIcon}
+          />
+        </ActionButton.Item>
+      </ActionButton>
     </View>
   );
 };
@@ -86,5 +122,21 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  actionButtonIcon: {
+    width: 30,
+    resizeMode: 'contain',
+  },
+  uploadBtn: {
+    backgroundColor: '#db346c',
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 5,
+  },
+  uploadBtnText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#fff',
+    elevation: 5,
   },
 });
