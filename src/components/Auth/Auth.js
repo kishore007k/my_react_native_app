@@ -1,17 +1,17 @@
+/* eslint-disable no-shadow */
 import React, {useContext, useEffect, useState} from 'react';
 import {AuthContext} from '../AuthContext';
 import auth from '@react-native-firebase/auth';
 import {AppStack, AuthStack} from '../Login';
 
-const Auth = props => {
+const Auth = () => {
   const [initialization, setInitialization] = useState(true);
-
   const {user, setUser} = useContext(AuthContext);
 
   console.log(user);
 
-  const onAuthStateChanged = user => {
-    setUser(user);
+  const onAuthStateChanged = userData => {
+    setUser(userData);
     if (initialization) {
       setInitialization(false);
     }
